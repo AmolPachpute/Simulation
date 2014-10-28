@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+      .active { fill: blue !important;}
+            /*.datamaps-key dt, .datamaps-key dd {float: none !important;}
+            .datamaps-key {right: -50px; top: 0;}*/
+    </style>
+    
+</head>
+
+<body>
+
+      <div id="container2" style="border:2px solid #FFFFFF; width: 700px; height: 475px; position: relative;"></div>
+
+      <script src="/static/js/maps/d3.js"></script>
+      <script src="/static/js/maps/topojson.js"></script>
+      <!-- <script src="/src/js/json2.js"></script> -->
+      <script src="/static/js/maps/datamaps.usa.js"></script>
+      <link rel="stylesheet" href="/static/css/maps/jslider.css" type="text/css"> <!--  css -->
+       <link rel="stylesheet" href="/static/css/maps/jslider.plastic.css" type="text/css"> 
+      
+      <script>
+//         function to redraw a map when user moves pointer from slider
+
+        function RedrawMap(date){
+          
+          $('#container2').html("");
+              var Un;
+              Un =  {{records_dict|safe}};
+              //alert(Un['Arizona'][date]);
+              
+              var election;
+              election = new Datamap({
+              scope: 'usa',
+              element: document.getElementById('container2'),
+              geographyConfig:
+                  {
+                    highlightBorderColor: '#bada55',
+                    popupTemplate: function(geography, data)
+                        {
+                          return '<div class="hoverinfo">' + geography.properties.name + '<br>Unemployment:' +  data.Unemployment[date] + '%'
+                        },
+                    highlightBorderWidth: 3
+                  },
+    
+              fills: {
+                // #CC4731  #306596  #667FAF
+                        "0_5" : "#5D94FA", // pink  
+                        "5_10" : "#61A60E", //green 
+                        "10_15" : "#9b4372", //sky blue  
+                        "15_20" : "#A9C0DE",
+                        defaultFill: '#EDDC4E'
+                      },
+              data:{"AZ": {  
+                            "fillKey": parseFloat(Un['Arizona'][date]) <= 10.0 ? (parseFloat(Un['Arizona'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Arizona'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Arizona|safe}}
+                          },
+                    "CO": {
+                            "fillKey": parseFloat(Un['Colorado'][date]) <= 10.0 ? (parseFloat(Un['Colorado'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Colorado'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Colorado|safe}}
+                          },
+                    "DE": {
+                            "fillKey": parseFloat(Un['Delaware'][date]) <= 10.0 ? (parseFloat(Un['Delaware'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Delaware'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Delaware|safe}}
+                          },
+                    "FL": {
+                            "fillKey": parseFloat(Un['Florida'][date]) <= 10.0 ? (parseFloat(Un['Florida'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Florida'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment:{{records_dict.Florida|safe}}
+                          },
+                    "GA": {
+                            "fillKey": parseFloat(Un['Georgia'][date]) <= 10.0 ? (parseFloat(Un['Georgia'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Georgia'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Georgia|safe}}
+                          },
+                    "HI": {
+                            "fillKey": parseFloat(Un['Hawaii'][date]) <= 10.0 ? (parseFloat(Un['Hawaii'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Hawaii'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Hawaii|safe}}
+                          },
+                    "ID": {
+                            "fillKey": parseFloat(Un['Idaho'][date]) <= 10.0 ? (parseFloat(Un['Idaho'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Idaho'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Idaho|safe}}
+                          },
+                    "IL": {
+                            "fillKey": parseFloat(Un['Illinois'][date]) <= 10.0 ? (parseFloat(Un['Illinois'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Illinois'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Illinois|safe}}
+                          },
+                    "IN": {
+                        "fillKey": parseFloat(Un['Indiana'][date]) <= 10.0 ? (parseFloat(Un['Indiana'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Indiana'][date]) < 15.0 ? "10_15": "5_10") ,
+                        Unemployment: {{records_dict.Indiana|safe}}
+                    },
+                    "IA": {
+                        "fillKey": parseFloat(Un['Iowa'][date]) <= 10.0 ? (parseFloat(Un['Iowa'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Iowa'][date]) < 15.0 ? "10_15": "5_10") ,
+                        Unemployment: {{records_dict.Iowa|safe}}
+                    },
+                    "KS": {
+                            "fillKey": parseFloat(Un['Kansas'][date]) <= 10.0 ? (parseFloat(Un['Kansas'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Kansas'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Kansas|safe}}
+                          },
+                    "KY": {
+                            "fillKey": parseFloat(Un['Kentucky'][date]) <= 10.0 ? (parseFloat(Un['Kentucky'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Kentucky'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Kentucky|safe}}
+                          },
+                    "LA": {
+                        "fillKey": parseFloat(Un['Louisiana'][date]) <= 10.0 ? (parseFloat(Un['Louisiana'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Louisiana'][date]) < 15.0 ? "10_15": "5_10") ,
+                        Unemployment: {{records_dict.Louisiana|safe}}
+                    },
+                    "MD": {
+                            "fillKey": parseFloat(Un['Maryland'][date]) <= 10.0 ? (parseFloat(Un['Maryland'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Maryland'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Maryland|safe}}
+                          },
+                    "ME": {
+                            "fillKey": parseFloat(Un['Maine'][date]) <= 10.0 ? (parseFloat(Un['Maine'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Maine'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Maine|safe}}
+                          },
+                    "MA": {
+                            "fillKey": parseFloat(Un['Massachusetts'][date]) <= 10.0 ? (parseFloat(Un['Massachusetts'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Massachusetts'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Massachusetts|safe}}
+                          },
+                    "MN": {
+                            "fillKey": parseFloat(Un['Minnesota'][date]) <= 10.0 ? (parseFloat(Un['Minnesota'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Minnesota'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Minnesota|safe}}
+                          },
+                    "MI": {
+                            "fillKey": parseFloat(Un['Michigan'][date]) <= 10.0 ? (parseFloat(Un['Michigan'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Michigan'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Michigan|safe}}
+                          },
+                    "MS": {
+                            "fillKey": parseFloat(Un['Mississippi'][date]) <= 10.0 ? (parseFloat(Un['Mississippi'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Mississippi'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Mississippi|safe}}
+                          },
+                    "MO": {
+                            "fillKey": parseFloat(Un['Missouri'][date]) <= 10.0 ? (parseFloat(Un['Missouri'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Missouri'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Missouri|safe}}
+                          },
+                    "MT": {
+                            "fillKey": parseFloat(Un['Montana'][date]) <= 10.0 ? (parseFloat(Un['Montana'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Montana'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Montana|safe}}
+                          },
+                    "NC": {
+                            "fillKey": parseFloat(Un['NorthCarolina'][date]) <= 10.0 ? (parseFloat(Un['NorthCarolina'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['NorthCarolina'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.NorthCarolina|safe}}
+                          },
+                    "NE": {
+                            "fillKey": parseFloat(Un['Nebraska'][date]) <= 10.0 ? (parseFloat(Un['Nebraska'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Nebraska'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Nebraska|safe}}
+                          },
+                    "NV": {
+                            "fillKey": parseFloat(Un['Nevada'][date]) <= 10.0 ? (parseFloat(Un['Nevada'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Nevada'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Nevada|safe}}
+                          },
+                    "NH": {
+                            "fillKey": parseFloat(Un['NewHampshire'][date]) <= 10.0 ? (parseFloat(Un['NewHampshire'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['NewHampshire'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.NewHampshire|safe}}
+                    },
+                    "NJ": {
+                            "fillKey": parseFloat(Un['NewJersey'][date]) <= 10.0 ? (parseFloat(Un['NewJersey'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['NewJersey'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.NewJersey|safe}}
+                          },
+                    "NY": {
+                            "fillKey": parseFloat(Un['NewYork'][date]) <= 10.0 ? (parseFloat(Un['NewYork'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['NewYork'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.NewYork|safe}}
+                          },
+                    "ND": {
+                            "fillKey": parseFloat(Un['NorthDakota'][date]) <= 10.0 ? (parseFloat(Un['NorthDakota'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['NorthDakota'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.NorthDakota|safe}}
+                          },
+                    "NM": {
+                            "fillKey": parseFloat(Un['NewMexico'][date]) <= 10.0 ? (parseFloat(Un['NewMexico'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['NewMexico'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.NewMexico|safe}}
+                          },
+                    "OH": {
+                            "fillKey": parseFloat(Un['Ohio'][date]) <= 10.0 ? (parseFloat(Un['Ohio'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Ohio'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Ohio|safe}}
+                          },
+                    "OK": {
+                            "fillKey": parseFloat(Un['Oklahoma'][date]) <= 10.0 ? (parseFloat(Un['Oklahoma'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Oklahoma'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Oklahoma|safe}}
+                          },
+                    "OR": {
+                            "fillKey": parseFloat(Un['Oregon'][date]) <= 10.0 ? (parseFloat(Un['Oregon'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Oregon'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Oregon|safe}}
+                          },
+                    "PA": {
+                            "fillKey": parseFloat(Un['Pennsylvania'][date]) <= 10.0 ? (parseFloat(Un['Pennsylvania'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Pennsylvania'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Pennsylvania|safe}}
+                          },
+                    "RI": {
+                            "fillKey": parseFloat(Un['RhodeIsland'][date]) <= 10.0 ? (parseFloat(Un['RhodeIsland'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['RhodeIsland'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.RhodeIsland|safe}}
+                          },
+                    "SC": {
+                            "fillKey": parseFloat(Un['SouthCarolina'][date]) <= 10.0 ? (parseFloat(Un['SouthCarolina'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['SouthCarolina'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.SouthCarolina|safe}}
+                          },
+                    "SD": {
+                        "fillKey": parseFloat(Un['SouthDakota'][date]) <= 10.0 ? (parseFloat(Un['SouthDakota'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['SouthDakota'][date]) < 15.0 ? "10_15": "5_10") ,
+                        Unemployment: {{records_dict.SouthDakota|safe}}
+                    },
+                    "TN": {
+                            "fillKey": parseFloat(Un['Tennessee'][date]) <= 10.0 ? (parseFloat(Un['Tennessee'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Tennessee'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Tennessee|safe}}
+                          },
+                    "TX": {
+                            "fillKey": parseFloat(Un['Texas'][date]) <= 10.0 ? (parseFloat(Un['Texas'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Texas'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Texas|safe}}
+                          },
+                    "UT": {
+                            "fillKey": parseFloat(Un['Utah'][date]) <= 10.0 ? (parseFloat(Un['Utah'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Utah'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Utah|safe}}
+                          },
+                    "WI": {
+                        "fillKey": parseFloat(Un['Wisconsin'][date]) <= 10.0 ? (parseFloat(Un['Wisconsin'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Wisconsin'][date]) < 15.0 ? "10_15": "5_10") ,
+                        Unemployment: {{records_dict.Wisconsin|safe}}
+                    },
+                    "VA": {
+                            "fillKey": parseFloat(Un['Virginia'][date]) <= 10.0 ? (parseFloat(Un['Virginia'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Virginia'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Virginia|safe}}
+                          },
+                    "VT": {
+                            "fillKey": parseFloat(Un['Vermont'][date]) <= 10.0 ? (parseFloat(Un['Vermont'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Vermont'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Vermont|safe}}
+                          },
+                    "WA": {
+                        "fillKey": parseFloat(Un['Washington'][date]) <= 10.0 ? (parseFloat(Un['Washington'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Washington'][date]) < 15.0 ? "10_15": "5_10") ,
+                        Unemployment: {{records_dict.Washington|safe}}
+                    },
+                    "WV": {
+                            "fillKey": parseFloat(Un['WestVirginia'][date]) <= 10.0 ? (parseFloat(Un['WestVirginia'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['WestVirginia'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.WestVirginia|safe}}
+                          },
+                    "WY": {
+                            "fillKey": parseFloat(Un['Wyoming'][date]) <= 10.0 ? (parseFloat(Un['Wyoming'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Wyoming'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Wyoming|safe}}
+                          },
+                    "CA": {
+                            "fillKey": parseFloat(Un['California'][date]) <= 10.0 ? (parseFloat(Un['California'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['California'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.California|safe}}
+                          },
+                    "CT": {
+                            "fillKey": parseFloat(Un['Connecticut'][date]) <= 10.0 ? (parseFloat(Un['Connecticut'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Connecticut'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Connecticut|safe}}
+                          },
+                    "AK": {
+                            "fillKey": parseFloat(Un['Alaska'][date]) <= 10.0 ? (parseFloat(Un['Alaska'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Alaska'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Alaska|safe}}
+                          },
+                    "AR": {
+                            "fillKey": parseFloat(Un['Arkansas'][date]) <= 10.0 ? (parseFloat(Un['Arkansas'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Arkansas'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Arkansas|safe}}
+                          },
+                    "AL": {
+                            "fillKey": parseFloat(Un['Alabama'][date]) <= 10.0 ? (parseFloat(Un['Alabama'][date]) < 5.0 ? "0_5": "5_10") : (parseFloat(Un['Alabama'][date]) < 15.0 ? "10_15": "5_10") ,
+                            Unemployment: {{records_dict.Alabama|safe}}
+                        }
+                      }
+                });
+              $('#container2').show();
+              election.labels();
+          }
+      </script>
+
+    <!--  for slider      -->
+      <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+      <link rel="stylesheet" href="/static/css/slider/jslider.css" type="text/css"> <!--  css -->
+      <link rel="stylesheet" href="/static/css/slider/jslider.plastic.css" type="text/css">  <!-- plastic box color -->
+      <script type="text/javascript" src="/static/js/slider/jshashtable-2.1_src.js"></script>
+      <script type="text/javascript" src="/static/js/slider/jquery.numberformatter-1.2.3.js"></script>
+      <script type="text/javascript" src="/static/js/slider/tmpl.js"></script>
+      <script type="text/javascript" src="/static/js/slider/jquery.dependClass-0.1.js"></script>
+      <script type="text/javascript" src="/static/js/slider/draggable-0.1.js"></script>
+      <script type="text/javascript" src="/static/js/slider/jquery.slider.js"></script>
+      
+      <style type="text/css" media="screen">
+	  body { background: #EEF0F7; }
+	 .layout { padding: 50px; font-family: Georgia, serif; }
+	 .layout-slider { margin-bottom: 60px; width: 50%; }
+	 .layout-slider-settings { font-size: 12px; padding-bottom: 10px; }
+	 .layout-slider-settings pre { font-family: Courier; }
+      </style>
+      <script>
+	$(document).ready(function(){
+                RedrawMap("2000-01-01");
+                var dates_list = {{dates_list|safe}}
+		$('.jslider-pointer').mousemove(function(){
+			$('#SliderValueC').val(dates_list[$('#SliderSingle').val()]);
+                        RedrawMap(dates_list[$('#SliderSingle').val()]);
+                        
+			});
+		});
+      </script>
+      
+      
+       <div class="layout">
+        <div class="layout-slider" id="sliderDiv">
+          <input id="SliderSingle" type="slider" name="price" value="0" />
+        </div>
+        
+        <script type="text/javascript" charset="utf-8">
+          jQuery("#SliderSingle").slider({ from: 0, to: {{dates_count}}, step: 1,
+            round: 0, scale: ['2000', '2001', '2002', '2003', '2004','2005', '2006', '2007', '2008', '2009','2010', '2011', '2012', '2013' ,'2014'],
+            format: { format: '', locale: 'de' },
+            dimension: '&nbsp;', skin: "plastic" });
+        </script>
+        <input id="SliderValueC" value="2000-01-01" />
+      </div>
+    <!--   slider ends    -->
+  
+
+
+
+
+</body>
+</html>

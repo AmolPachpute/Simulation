@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Pearson{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        
+    <!--<link rel="stylesheet" href="styles/main.css"-->
+</head>
+<body>
+    
+    
+    <script src="js/bootstrap.js"></script>
+    <div class="view-container">
+    
+    
+    <div class="level-1-container"><!-- parent container starts here  -->
+    
+        {% block header %}
+            <div class="header">
+                
+            </div>
+            <br>
+        {% endblock %}
+       
+        {% block content %}
+        
+       
+        {% endblock %}
+    
+    </div> <!-- parent container ends here -->
+    </div>
+</body>
+ 
+</html>

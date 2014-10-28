@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Recognize{% endblock %}
+{% block content %}
+
+<script type="text/javascript">
+             $(document).ready(function(){
+                 $(".tooltip-examples li").tooltip({
+                     placement : 'top'
+                 });
+                 
+                 $(".failed-attempts-count").hide();
+             });
+</script>
+<script>
+            function allowDrop(ev)
+             {
+                 ev.preventDefault();
+             }
+            function drag(ev)
+            {
+                ev.dataTransfer.setData("mem_catagory_id", ev.target.id);
+                ev.dataTransfer.setData("name", ev.target.name);
+            }
+            
+            function drop(ev)
+            {
+                ev.preventDefault();
+                var member_id;
+                var cat_id;
+                var s_id;
+                mem_catagory_id = ev.dataTransfer.getData("mem_catagory_id");
+                s_id = ev.dataTransfer.getData("name");
+                cat_id = ev.target.id;
+                if (mem_catagory_id == cat_id) {
+                          alert("Correct"+cat_id);
+                          var cat_count;
+                          cat_count = parseInt($(".total[name="+cat_id+"]").text());
+                          cat_count += 1;
+                          $(".total[name="+cat_id+"]").text(cat_count);
+                }
+                else
+                {
+                          alert("Incorrect");
+                          var element;
+                          element = $('.failed-attempts-count#member'+s_id);
+                          var failed_count;
+                          failed_count = parseInt(element.text());
+                          failed_count += 1;
+                          element.text(failed_count);
+                          element.show();
+                          
+                }
+             return false;
+                //ev.target.appendChild(document.getElementById(data));
+            }
+</script>
+
+             
+<div class="profiles">
+             
+             <h2 class="profiles-header">Are They UnEmployed??</h2>
+             
+               <ul class="tooltip-examples list-inline">
+                 {% for member in members_list %}
+             
+                     {% if member.gender == 'male' %}
+                          <li class="profile active" data-toggle="tooltip" data-original-title="{{member.description}} id={{member.id}}">
+                            <img src="/static/img/male.jpeg" draggable="true" ondragstart="drag(event)" id="{{member.catagory.id}}" name="{{member.id}}">
+                            <span class="failed-attempts-count" id="member{{member.id}}">0</span>
+                          </li>
+                          
+                     {% else %}
+                          <li class="profile active" data-toggle="tooltip" data-original-title="{{member.description}}{{member.id}}">
+                             <img src="/static/img/female.jpeg" draggable="true" ondragstart="drag(event)" id="{{member.catagory.id}}" name="{{member.id}}">
+                             <span class="failed-attempts-count" id="member{{member.id}}">0</span>
+                          </li>
+                     {% endif %}
+
+                 {% endfor %}
+               </ul>
+</div>
+<div class="tree">
+           <iframe src="//research.stlouisfed.org/fred2/graph/graph-landing.php?g=MTk" scrolling="no" frameborder="0" style="overflow:hidden; width:670px; height:475px;" allowTransparency="true"></iframe>
+</div>
+{% endblock %}
+        
+       
+       
