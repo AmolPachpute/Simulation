@@ -6107,5 +6107,30 @@ select {
 }
 
 .gridCenter{
-    padding: 0% 22% 0% 22%
+    padding: 0% 25%;
+}
+
+/* for grid ,scroll table body and not table header  */
+.gridTable {
+    overflow-y: scroll;
+    height: 300px;
+    width: 48%;
+    position: absolute; /* imp */
+}
+.gridTable tr{
+    width:100%;
+}
+.gridTable tr td{
+    width:100%;
+}
+th{
+    width:100%;
+}
+/* xxxxxxx  */
+
+@media only screen and (min-width:150px) and (max-width:800px)
+{
+    #container{
+        width:100%;
+    }
 }
