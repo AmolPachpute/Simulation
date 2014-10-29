@@ -66,7 +66,7 @@ states_list = [ ('ALURN','Alabama'),('AKURN','Alaska'),
                 ('NDURN','NorthDakota'),('OHURN','Ohio'),
                 ('OKURN','Oklahoma'),('ORURN','Oregon'),
                 ('PAURN','Pennsylvania'),('RIURN','RhodeIsland'),
-                ('SCURN','SouthCarolina'),('SDURN','South Dakota'),
+                ('SCURN','SouthCarolina'),('SDURN','SouthDakota'),
                 ('TNURN','Tennessee'),('TXURN','Texas'),('UTURN','Utah'),
                 ('VTURN','Vermont'),('VAURN','Virginia'),('WAURN','Washington'),
                 ('WVURN','WestVirginia'),('WIURN','Wisconsin'),('WYURN','Wyoming')

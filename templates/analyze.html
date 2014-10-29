@@ -3,33 +3,7 @@
 
 
 {% block content %}
-    
-    <script>  //  for graph
-
-
-    $(document).ready(function(){
-        $("#graphCountry").css('background-color','#7cb5ec');
-        $("input[name=graphCountry]").prop('checked', true);
-        drawGraph(['US']);
-         $("#selectState").change(function(){
-            $("#graphst-name").html($("#selectState").val());
-            //alert($("#graphst-name").html());
-            $("#graphState").css('background-color','#f7a35c');
-            $("input[name=graphState]").prop('checked', true);
-            $("#graphState").show();
-            drawGraph(getChecked());
-        });
-        
-        //randNum = Math.floor((Math.random() * 10) + 1);
-        //colors=['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', 
-        //        '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1']
-        
-        });
-    </script>
-    
-    
     <br>
-
         <ul class="nav nav-tabs">
             <li class="active"><a href="#profile" data-toggle="tab">Map</a></li>
             <li class=""><a href="#graph" data-toggle="tab">Graph</a></li>
@@ -42,10 +16,8 @@
                     <div style="padding:0% 30%;font-size: 150%">
                         Unemployment Rate - Month: year
                     </div>
-       
-                </div>
-                <br>
-            {% include "map.html"%}
+                </div><br>
+                {% include "map.html"%}
           </div>
           
           <div class="tab-pane fade " id="graph" class="row">
@@ -54,156 +26,21 @@
                     <div style="padding:0% 30%;font-size: 150%">
                         Unemployment Rate - Month: year
                     </div>
-       
                 </div><br>
-                <div class="col-md-8 ">
-                    {% include "graph.html" %}
-                </div><br>
-                <div class="col-md-4">
-                    <div>
-                     
-                        <select class="form-control" id="selectState">
-                            <option value="Select State">Select state</option>
-                            {% for tup in states_list %}
-                                <option value="{{tup.1}}">{{tup.1}}</option>
-                            {% endfor %}
-                        </select><br>
-                    
-                        <div class="checkbox" >
-                          <label  style="" id="graphCountry">
-                            <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
-                          </label>
-                          
-                        </div>
-                        <div class="checkbox" >
-                          <label style="" id="graphState">
-                            <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
-                          </label>
-                          
-                        </div>
-                        <button value="click" id="clickbut1">Click here</button>
-                        <button value="click" id="clickbut2">Click here</button>
-                        
-                        
-                    </div>
-                </div>
-            
+                {% include "graph.html" %}
           </div>
            <div class="tab-pane fade style="overflow: hidden"" id="datagrid">
-            <br>
+                <br>
                 <div class="bar_back">
                     <div style="padding:0% 30%;font-size: 150%">
                         Unemployment Rate - Month: year
                     </div>
-       
-                </div>
-                <br>
-                <div class="row" >
-                    <div class="col-md-8">
-                        <div class="gridCenter">
-                            
-                            <div class="row">
-                                <div class="col-lg-6">
-                                <select class="form-control" id="selectMonth" >
-                                    <option value="Select State">Select state</option>
-                                    {% for tup in states_list %}
-                                        <option value="{{tup.1}}">{{tup.1}}</option>
-                                    {% endfor %}
-                                </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <select class="form-control" id="selectYear">
-                                        <option value="Select State">Select state</option>
-                                        {% for tup in states_list %}
-                                            <option value="{{tup.1}}">{{tup.1}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            
-                           <!-- <div class="bar_back">
-                                <div style="text-align: center;font-size: 100%">
-                                    United States Unemployment 
-                                </div>
-                            </div>-->
-                            
-                            <div class="table-responsive table-striped" style="height: 350px;padding:5px 0px 0px 0px;">
-                                <table class="table">
-                                    <thead>
-                                    <tr class="success">
-                                        <th>State</th>
-                                        <th>Unemployment</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="gridTable">
-                                    <tr class="warning">
-                                        <td>Alaska</td>
-                                        <td>5%</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>Idaho</td>
-                                        <td>2%</td>
-                                    </tr>
-                                     <tr class="warning">
-                                        <td>Alaska</td>
-                                        <td>5%</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>Idaho</td>
-                                        <td>2%</td>
-                                    </tr>
-                                     <tr class="warning">
-                                        <td>Alaska</td>
-                                        <td>5%</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>Idaho</td>
-                                        <td>2%</td>
-                                    </tr>
-                                     <tr class="warning">
-                                        <td>Alaska</td>
-                                        <td>5%</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>Idaho</td>
-                                        <td>2%</td>
-                                    </tr>
-                                    </tr>
-                                     <tr class="warning">
-                                        <td>Alaska</td>
-                                        <td>5%</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>Idaho</td>
-                                        <td>2%</td>
-                                    </tr>
-                                     <tr class="warning">
-                                        <td>Alaska</td>
-                                        <td>5%</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>Idaho</td>
-                                        <td>2%</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            
-                            
-                            
-                        </div>
-                    
-                    </div>
-                    
-                    <div class="col-md-4">.col-xs-6 .col-md-4</div>
-                </div>
-               
-               
+                </div><br>
+                {% include 'grid.html' %}
             </div>
             
-          </div>
-           <br><br><br><br>
+        </div>
+        <br><br><br><br>
           
          
         </div>
