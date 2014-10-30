@@ -3,7 +3,11 @@
 
 
 {% block content %}
-    <br>
+    
+    <link rel="stylesheet" href="/static/css/animations/animation.css"><!-- load animate -->
+
+    
+    
         <ul class="nav nav-tabs">
             <li class="active"><a href="#profile" data-toggle="tab">Map</a></li>
             <li class=""><a href="#graph" data-toggle="tab">Graph</a></li>
@@ -11,38 +15,33 @@
         </ul>
         <div id="myTabContent" class="tab-content">
           <div class="tab-pane fade active in" id="profile">
-                <br>
+                
                 <div class="bar_back">
-                    <div style="padding:0% 30%;font-size: 150%">
-                        Unemployment Rate - Month: year
+                    <div style="padding:0% 38%;font-size: 150%;color:#fff;margin:0% 5%">
+                        Month: year
                     </div>
                 </div><br>
                 {% include "map.html"%}
           </div>
           
           <div class="tab-pane fade " id="graph" class="row">
-                <br>
                 <div class="bar_back">
-                    <div style="padding:0% 30%;font-size: 150%">
-                        Unemployment Rate - Month: year
+                    <div style="padding:0% 38%;font-size: 150%;color:#fff;;margin:0% 5%">
+                        Month: year
                     </div>
                 </div><br>
                 {% include "graph.html" %}
           </div>
            <div class="tab-pane fade style="overflow: hidden"" id="datagrid">
-                <br>
                 <div class="bar_back">
-                    <div style="padding:0% 30%;font-size: 150%">
-                        Unemployment Rate - Month: year
+                    <div style="padding:0% 38%;font-size: 150%;color:#fff;;margin:0% 5%">
+                        Month: year
                     </div>
                 </div><br>
                 {% include 'grid.html' %}
             </div>
-            
         </div>
         <br><br><br><br>
-          
-         
         </div>
   
  

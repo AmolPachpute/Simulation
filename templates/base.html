@@ -22,12 +22,34 @@
     
         {% block header %}
             <div class="header">
-                 <span style="color: #fbfbe8;float:right;padding:10px 0px 0px 0px;">
-                    
-                    <img src="/static/img/female.jpeg" height="30px" width="30px">
-                    Welcome : Username
-                 </span>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="float: left;color: #fff;padding:5px 0px 0px 0px;">
+                                    <h3 style="float: left;">Score &nbsp;: </h3>
+                                    <div style="float: left;height:2%;width:auto"><h3> &nbsp;5%</h3></div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div style="font-size: medium;color: #fff;padding:0px 0px 0px 190px;">
+                                    <h2 >Unemployment</h2>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-4">
+                        <span style="color: #fff;float:right;padding:25px 0px 0px 0px;">
+                            <img src="/static/img/female.jpeg" height="30px" width="30px">
+                            Welcome : Username
+                         </span>
+                    </div>
+                </div>
+
             </div>
+            <br>
             <br>
         {% endblock %}
        
