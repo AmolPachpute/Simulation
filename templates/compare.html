@@ -1,31 +1,25 @@
 {% extends 'base.html' %}
-{% block title %}Analyze{% endblock %}
 
-{% block level %}Analyze{% endblock %}
+{% block title %}
+ Compare
+{% endblock %}
+
+{% block level %}Compare{% endblock %}
+
 {% block content %}
-    
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#profile" data-toggle="tab">Map</a></li>
-            <li class=""><a href="#graph" data-toggle="tab">Graph</a></li>
+    <ul class="nav nav-tabs">
+            <li class="active"><a href="#graph" data-toggle="tab">Graph</a></li>
             <li class=""><a href="#datagrid" data-toggle="tab">DataGrid</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
-          <div class="tab-pane fade active in" id="profile">
-                
-                <div class="bar_back">
-                    <div style="padding:0% 38%;font-size: 150%;color:#fff;margin:0% 5%">
-                        Month: year
-                    </div>
-                </div><br>
-                {% include "map.html"%}
-          </div>
-          <div class="tab-pane fade " id="graph" class="row">
+          
+          <div class="tab-pane fade active in" id="graph" class="row">
                 <div class="bar_back">
                     <div style="padding:0% 38%;font-size: 150%;color:#fff;;margin:0% 5%">
                         Month: year
                     </div>
                 </div><br>
-                {% include "analyze-graph.html" %}
+                {% include "compare-graph.html" %}
           </div>
            <div class="tab-pane fade style="overflow: hidden"" id="datagrid">
                 <div class="bar_back">
@@ -37,7 +31,4 @@
             </div>
         </div>
         <br><br><br><br>
-        
-  
- 
 {% endblock %}

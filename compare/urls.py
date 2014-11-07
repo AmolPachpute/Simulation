@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
-from recognize.views import Recognize
+from compare.views import Compare
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', Recognize.as_view(), name='recognize'),
+    url(r'^$', Compare.as_view(), name='compare'),
 
 )

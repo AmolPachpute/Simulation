@@ -7,9 +7,29 @@
     
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    
+    <link rel="stylesheet" href="/static/css/animations/animation.css"><!-- load animate -->
         
     <!--<link rel="stylesheet" href="styles/main.css"-->
+    <script>
+        $(document).ready(function(){
+            $('#levels').change(function(){
+                    if ($(this).val() == "analyze"){
+                        window.location.href="{% url 'analyze' %}";
+                    }
+                    else if ($(this).val() == "recognize"){
+                        window.location.href="{% url 'recognize' %}";
+                    }
+                    else if ($(this).val() == "compare"){
+                        window.location.href="{% url 'compare' %}";
+                    }
+                    else if ($(this).val() == "analyze"){
+                        window.location.href="";
+                    }
+                });
+        });
+    </script>
 </head>
 <body>
     
@@ -17,9 +37,7 @@
     <script src="js/bootstrap.js"></script>
     <div class="view-container">
     
-    
     <div class="level-1-container"><!-- parent container starts here  -->
-    
         {% block header %}
             <div class="header">
                 <div class="row">
@@ -47,17 +65,57 @@
                          </span>
                     </div>
                 </div>
-
             </div>
-            <br>
-            <br>
+            <div style="float:left;font-size: 30px;font-weight: 800;color: #883100">{% block level %}Level{% endblock %}</div>
+            <div style="height:58px;width:100%;padding:11px 0px;">
+                <div  style="float:right;" >
+                <select id="levels" class="form-control">
+                    <option value="">Select level</option>
+                    <option value="analyze">level:1-Analyze</option>
+                    <option value="recognize">level:2-Recognize</option>
+                    <option value="calculate">level:3-Calculate</option>
+                    <option value="compare">level:4-Compare</option>
+                </select>
+                </div>
+            </div>
         {% endblock %}
-       
         {% block content %}
-        
-       
         {% endblock %}
-    
+        
+<!--         for slider(with map)   -->
+        <link href="/static/css/slider/jquery.range.css" rel="stylesheet" type="text/css">
+        <script src="/static/js/slider/jquery.range.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('.SliderSingle').jRange({
+                from: 0,
+                to: {{dates_count}}+4,
+                step: 1,
+                scale: ['2000', '2001', '2002', '2003', '2004','2005', '2006', '2007', '2008', '2009','2010', '2011', '2012', '2013' ,'2014' ,'2015'],
+                format: '%s',
+                width: 500,
+                showLabels: true
+            });
+       
+                RedrawMap("2000-01-01");
+                var dates_list = {{dates_list|safe}}
+		$('.slider-container').click(function(){
+			$('#SliderValueC').val(dates_list[$('#pointerLabel').html()]);
+                        RedrawMap(dates_list[$('#pointerLabel').html()]);
+                        
+		});
+                $('#jslider-pointer').mousemove(function(){
+			$('#SliderValueC').val(dates_list[$('#pointerLabel').html()]);
+                        RedrawMap(dates_list[$('#pointerLabel').html()]);
+                        
+		});
+  
+        });
+        </script>
+<!--        xxxxxxxx      -->
+        
+        
+        
     </div> <!-- parent container ends here -->
     </div>
 </body>

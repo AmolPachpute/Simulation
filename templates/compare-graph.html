@@ -1,0 +1,356 @@
+    
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/static/js/highcharts/highcharts.src.js"></script>
+    <script src="http://code.highcharts.com/modules/data.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    
+    <!-- Additional files for the Highslide popup effect -->
+    <script type="text/javascript" src="http://www.highcharts.com/media/com_demo/highslide-full.min.js"></script>
+    <script type="text/javascript" src="http://www.highcharts.com/media/com_demo/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.highcharts.com/media/com_demo/highslide.css" />
+    
+    
+    
+    <script>  //  for graph
+    $(document).ready(function(){
+        $("#graphCountry").css('background-color','#7cb5ec');
+        $("input[name=graphCountry]").prop('checked', true);
+        drawGraph(['US']);
+         $("#selectState").change(function(){
+            $("#graphst-name").html($("#selectState").val());
+            //alert($("#graphst-name").html());
+            $("#graphState").css('background-color','#f7a35c');
+            $("input[name=graphState]").prop('checked', true);
+            $("#graphState").show();
+            drawGraph(getChecked());
+        });
+        
+        //randNum = Math.floor((Math.random() * 10) + 1);
+        //colors=['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', 
+        //        '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1']
+        
+        });
+    </script>
+    
+    
+    <script>
+        function drawGraph(states_array) {
+            var fill_color;
+            fill_color = "#7cb5ec";
+            if (states_array.length == 1 && states_array[0] != "US") {
+                fill_color = "#f7a35c";
+            }
+            dates_list = {{dates_list|safe}};
+            records_dict = {{records_dict|safe}};
+            records_string = "Day"
+            for (var i=0;i<states_array.length;i++)
+            {
+                records_string += "," + states_array[i] ;
+            }
+            records_string+= "\n";
+            
+            //records_string = "Day,Arizona,Idaho,Nevada\n";
+            if (states_array.length == 1 && states_array[0] == 'US') // for only US
+            {
+                for (var i=0;i<dates_list.length;i++)
+                {
+                    date = dates_list[i]
+                    records_string += dates_list[i] + "," +records_dict['UnitedStates'][date]+"\n"
+                }
+            }
+            else if (states_array.length == 1 && states_array[0] != 'US') // other than US
+            {
+               for (var i=0;i<dates_list.length;i++)
+                {
+                    date = dates_list[i]
+                    records_string += dates_list[i] + "," +records_dict[states_array[0]][date]+"\n"
+                }
+            }
+            else if (states_array.length == 2)
+            {
+                for (var i=0;i<dates_list.length;i++)
+                {
+                    date = dates_list[i]
+                    records_string += dates_list[i] + "," +records_dict['UnitedStates'][date] +"," + records_dict[states_array[1]][date]+"\n"
+                }
+            }
+            
+            $('#container').highcharts({
+              
+                data: {
+                            csv: records_string
+                        },
+    
+                title: {
+                            text: 'U.S Unemployment'
+                        },
+    
+                xAxis: {
+                            tickInterval: 30 *24 * 3600 * 10000, // one week
+                            tickWidth: 0,
+                            gridLineWidth: 1,
+                            labels: {
+                                align: 'left',
+                                x: -10,
+                                y: 10
+                            },
+                            //tickColor: '#FF0000',
+                            //tickWidth: 3
+                           // minorTickInterval : 'auto'
+                           tickLength: 20,
+                           title:   {
+                                        enabled: true,
+                                        text: 'Year',
+                                        style: {
+                                            fontWeight: 'normal'
+                                        }
+                                    },
+                        },
+    
+                yAxis: [{ // left y axis
+                            title: {
+                                text: 'Unemployment in %'
+                            },
+                            labels: {
+                                align: 'left',
+                                x: 3,
+                                y: 16,
+                                format: '{value:.,0f}'
+                            },
+                            showFirstLabel: true,
+                        },
+                        { // right y axis
+                            linkedTo: 0,
+                            gridLineWidth: 0,
+                            opposite: true,
+                            title:  {
+                                        text: null
+                                    },
+                            labels: {
+                                        align: 'right',
+                                        x: -3,
+                                        y: 16,
+                                        format: '{value:.,0f}'
+                                    },
+                            showFirstLabel: false
+                        }],
+    
+                legend: {
+                    align: 'left',
+                    verticalAlign: 'top',
+                    y: 20,
+                    floating: true,
+                    borderWidth: 0
+                },
+    
+                tooltip: {
+                    shared: true,
+                    crosshairs: [{width: 10, color: 'green'}]
+                },
+    
+                plotOptions: {
+                    series: {
+                            cursor: 'pointer',
+                            point: {
+                                events: {
+                                    click: function (e) {
+                                        hs.htmlExpand(null, {
+                                            pageOrigin: {
+                                                x: e.pageX || e.clientX,
+                                                y: e.pageY || e.clientY
+                                            },
+                                            headingText: this.series.name,
+                                            maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
+                                                this.y + ' visits',
+                                            width: 200
+                                        });
+                                    }
+                                }
+                            },
+                            animation: false,
+                            marker: {
+                                        lineWidth: 1,
+                                        lineColor: Highcharts.getOptions().colors[5]
+                                    },
+                             //color: '#FF0000'
+                            }
+                        },
+                series: [{
+                           // name: 'All visits',
+                            lineWidth: 4,
+                            marker: {
+                                        symbol: 'circle',
+                                        radius:3,
+                                        
+                                    },
+                            color: fill_color,
+                        },
+                        {
+                            //name: 'Idhaho',
+                            lineWidth: 4,
+                            marker: {
+                                        symbol: 'circle',
+                                        radius:3,
+                                    },
+                            color: '#f7a35c'
+                        }
+                        ]
+            });
+    
+    } //main function drawGraph ends here
+    
+    </script>
+    
+    
+    
+    <script>
+        $(document).ready(function(){
+            $("#expansionary-content").hide();
+            $("#recessionary-label").click(function(){
+                if ($("#expansionary-content").is(':visible')) {
+                    $("#expansionary-content").slideUp();
+                }
+                
+                //$("#expansionary-content").slideToggle();
+                $("#recessionary-content").slideToggle();
+                
+                });
+            
+            $("#expansionary-label").click(function(){
+                
+                if ($("#recessionary-content").is(':visible')) {
+                    $("#recessionary-content").slideUp();
+                }
+                $("#expansionary-content").slideToggle();
+                //$("#recessionary-content").slideToggle();
+                
+                });
+            
+            });
+    </script>
+    
+    <div class="col-md-8 ">   
+    <div id="container" style="height: 400px;margin: 0 auto"></div>
+    </div>
+
+    <div class="col-md-4">
+        
+        <div id="recessionary-label" style="background-color:#FFFFFF;widht:100%;height:auto;cursor: pointer;">
+            <h3 style="font-weight: 800">Recessionary period</h3>
+        </div>
+        <div id="recessionary-content" style="overflow-y: scroll;height:200px;">
+            <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
+              </label>
+              
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
+              </label>
+              
+            </div>
+             <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
+              </label>
+              
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
+              </label>
+              
+            </div>
+             <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
+              </label>
+              
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
+              </label>
+              
+            </div>
+             <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
+              </label>
+              
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
+              </label>
+              
+            </div>
+             <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
+              </label>
+              
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
+              </label>
+              
+            </div>
+            
+        </div>
+        
+        <div id="expansionary-label" style="background-color:#FFFFFF;widht:100%;height:auto;cursor: pointer">
+            <h3 style="font-weight: 800">Expansionary period</h3>
+        </div>
+        <div id="expansionary-content" style="overflow-y: scroll;height:200px;">
+            <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US--</span>
+              </label>
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska--</span>
+              </label>
+              
+            </div>
+             <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US--</span>
+              </label>
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska--</span>
+              </label>
+            </div>
+             <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
+              </label>
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
+              </label>
+            </div>
+             <div class="checkbox" >
+              <label  style="" id="graphCountry">
+                <input type="checkbox" name="graphCountry" > <span id="graphct-name">US</span>
+              </label>
+            </div>
+            <div class="checkbox" >
+              <label style="" id="graphState">
+                <input type="checkbox" name="graphState" > <span id="graphst-name">Alaska</span>
+              </label>
+            </div>
+             
+            
+            </div>
+        
+        
+    </div>

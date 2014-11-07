@@ -59,7 +59,6 @@
 <div class="profiles">
              
              <h2 class="profiles-header">Are They UnEmployed??</h2>
-             
                <ul class="tooltip-examples list-inline">
                  {% for member in members_list %}
              
@@ -68,7 +67,6 @@
                             <img src="/static/img/male.jpeg" draggable="true" ondragstart="drag(event)" id="{{member.catagory.id}}" name="{{member.id}}">
                             <span class="failed-attempts-count" id="member{{member.id}}">0</span>
                           </li>
-                          
                      {% else %}
                           <li class="profile active" data-toggle="tooltip" data-original-title="{{member.description}}{{member.id}}">
                              <img src="/static/img/female.jpeg" draggable="true" ondragstart="drag(event)" id="{{member.catagory.id}}" name="{{member.id}}">
