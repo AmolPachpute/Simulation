@@ -94,15 +94,17 @@ class Fred(object):
         url = "http://api.stlouisfed.org/fred/series/observations?series_id=%s&api_key=%s&observation_start=2000-01-01" % (series_id, self.api_key)
         root = self.__fetch_data(url)
         if root is None:
-            raise ValueError('No data exists for series id: ' + series_id)
-        data = {}
-        for child in root.getchildren():
-            val = child.get('value')
-            if val == self.nan_char:
-                val = float('NaN')
-            else:
-                val = float(val)
-            data[parse(child.get('date'))] = val
+            pass
+            #raise ValueError('No data exists for series id: ' + series_id)
+        else:
+            data = {}
+            for child in root.getchildren():
+                val = child.get('value')
+                if val == self.nan_char:
+                    val = float('NaN')
+                else:
+                    val = float(val)
+                data[parse(child.get('date'))] = val
         return pd.Series(data)
 
     def get_series_latest_release(self, series_id):

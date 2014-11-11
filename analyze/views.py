@@ -164,7 +164,6 @@ class Analyze(View):
                 status = True
             data_dict = dict(data.T)
             temp_dict = {}
-            
             for i in data_dict.keys():
                 temp_dict[str(i)[0:10]] = str(data_dict[i])[0:6]
             records_dict[states_dict[st]] = temp_dict
@@ -187,4 +186,9 @@ class Analyze(View):
         
         return data_dict
         
+        
+#to get children for a catagory
+#http://api.stlouisfed.org/fred/category/children?category_id=27281&api_key=6507f7fface9ac45d34868f450c1e7e9
+# link - http://research.stlouisfed.org/fred2/categories
+
 

@@ -11,22 +11,14 @@
             <li class="active"><a href="#graph" data-toggle="tab">Graph</a></li>
             <li class=""><a href="#datagrid" data-toggle="tab">DataGrid</a></li>
         </ul>
-        <div id="myTabContent" class="tab-content">
+        <div id="myTabContent" class="tab-content border">
           
           <div class="tab-pane fade active in" id="graph" class="row">
-                <div class="bar_back">
-                    <div style="padding:0% 38%;font-size: 150%;color:#fff;;margin:0% 5%">
-                        Month: year
-                    </div>
-                </div><br>
+               <br>
                 {% include "compare-graph.html" %}
           </div>
            <div class="tab-pane fade style="overflow: hidden"" id="datagrid">
-                <div class="bar_back">
-                    <div style="padding:0% 38%;font-size: 150%;color:#fff;;margin:0% 5%">
-                        Month: year
-                    </div>
-                </div><br>
+                <br>
                 {% include 'analyze-grid.html' %}
             </div>
         </div>

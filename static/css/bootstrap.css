@@ -919,8 +919,8 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: 0;
+  outline: 0px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 figure {
@@ -3594,11 +3594,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #eee;
 }
 .nav > li.disabled > a {
-  color: #777;
+  color: #FFFFFF;
 }
 .nav > li.disabled > a:hover,
 .nav > li.disabled > a:focus {
-  color: #777;
+  color: #FFFFFF;
   text-decoration: none;
   cursor: not-allowed;
   background-color: transparent;
@@ -3607,7 +3607,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eee;
-  border-color: #428bca;
+  border-color: #;
 }
 .nav .nav-divider {
   height: 1px;
@@ -3630,18 +3630,21 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   line-height: 1.42857143;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
+  color:#883100;   /* cccc */
 }
 .nav-tabs > li > a:hover {
   border-color: #eee #eee #ddd;
 }
+
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555;
+  color: #883100;
   cursor: default;
   background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
+  /*border-radius:20px;*/
 }
 .nav-tabs.nav-justified {
   width: 100%;
@@ -3675,6 +3678,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs.nav-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:focus {
   border: 1px solid #ddd;
+  
 }
 @media (min-width: 768px) {
   .nav-tabs.nav-justified > li > a {
